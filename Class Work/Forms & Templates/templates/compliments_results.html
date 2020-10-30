@@ -6,9 +6,17 @@
     <body>
         <!-- Your HTML code goes here! -->
 
-        
+        <h2>Hey {{ name }}!</h2>
 
-        
-        
+        {% if compliments %}
+            <h2>It looks like you are having a wonderful day!<br>Here's how you feel:</h2>
+            <ul>
+                {% for compliment in compliments %}
+                    <li><h3>{{ compliment }}</h3></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>How is it going?<br>You seem a bit shy</h2>
+        {% endif %}    
     </body>
 </html>

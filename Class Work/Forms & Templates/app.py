@@ -83,9 +83,10 @@ def calculator_results():
     result = ops[operation](operand1, operand2)
 
     context = {
-        'operand1': operand1,
-        'operand2': operand2,
-        'result'  : result 
+        'operand1'  : operand1,
+        'operand2'  : operand2,
+        'operation' : operation,
+        'result'    : result 
     }
 
     return render_template('calculator_results.html', **context)
@@ -128,8 +129,17 @@ def compliments():
 @app.route('/compliments_results')
 def compliments_results():
     """Show the user some compliments."""
+    name = request.args.get('users_name')
+    should_show_compliments = request.args.get('wants_compliments')
+    number_of_compliments = request.args.get('num_compliments')
+
+    compliments = None
+    if should_show_compliments == 'yes' and number_of_compliments.isdigit():
+        compliments = random.sample(list_of_compliments, int(number_of_compliments))
+
     context = {
-        # TODO: Enter your context variables here.
+        'name' : name,
+        'compliments' : compliments
     }
 
     return render_template('compliments_results.html', **context)
