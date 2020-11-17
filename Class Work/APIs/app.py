@@ -84,7 +84,7 @@ def results():
         'description': result_json['weather'][0]['description'],
         'temp': result_json['main']['temp'],
         'symbol': symbol,
-        'humidity': result_json['main']['humidity'],
+        'humidity': result_json['main']['humidity'],sourc
         'wind_speed': result_json['wind']['speed'],
         'sunrise': sunrise,
         'sunset': sunset,
