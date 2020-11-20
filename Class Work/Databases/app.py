@@ -56,6 +56,8 @@ def create():
 def detail(plant_id):
     """Display the plant detail page & process data from the harvest form."""
 
+    if not ObjectId.is_valid(plant_id):
+        return render_template('404.html')
     
     plant_to_show = plants_db.find_one({'_id': ObjectId(plant_id)})
     harvests = harvests_db.find({'plant_id': plant_id})
@@ -64,7 +66,9 @@ def detail(plant_id):
         'plant' : plant_to_show,
         'harvests': harvests
     }
+    
     return render_template('detail.html', **context)
+        
 
 @app.route('/harvest/<plant_id>', methods=['POST'])
 def harvest(plant_id):
@@ -115,6 +119,9 @@ def delete(plant_id):
 
     return redirect(url_for('plants_list'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html')
 
+if __name__ == '__main__':
+    app.run(debug=False)
