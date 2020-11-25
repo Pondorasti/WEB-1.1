@@ -1,0 +1,6 @@
+You have the following items in stock:
+<ul>
+    {% for item in inventory %}
+        <li>{{ item['name'] }}: {{ item['price'] }}</li>
+    {% endfor %}
+</ul>

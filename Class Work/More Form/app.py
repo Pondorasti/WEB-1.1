@@ -5,10 +5,10 @@ import json
 import os
 import random
 import requests
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
-print(os.getenv('SECRET_KEY'))
+# load_dotenv()
+# print(os.getenv('SECRET_KEY'))
 
 app = Flask(__name__)
 
@@ -214,6 +214,20 @@ def gif_search():
         return render_template('gif_search.html', **context)
     else:
         return render_template('gif_search.html')
+
+@app.route('/inventory')
+def show_inventory():
+    """Show the user what is in stock."""
+    context = {
+
+        'inventory': [    # Could contain any items
+            {'name': 'apple', 'price': 1.00},
+            {'name': 'banana', 'price': 1.20},
+            {'name': 'carrot', 'price': 2.00},
+        ]
+    }
+    return render_template('show_inventory.html', **context)
+
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
