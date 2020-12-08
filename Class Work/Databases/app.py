@@ -1,18 +1,29 @@
 from flask import Flask, request, redirect, render_template, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import os
+from dotenv import load_dotenv
+from pymongo import MongoClient
 
 ############################################################
 # SETUP
 ############################################################
 
+load_dotenv()
+MONGODB_USERNAME = os.getenv('MONGODB_USERNAME')
+MONGODB_PASSWORD = os.getenv('MONGODB_PASSWORD')
+MONGODB_DBNAME = 'test'
+
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/plantsDatabase"
-mongo = PyMongo(app)
+client = MongoClient(f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@web-1-1.mrsrq.mongodb.net/{MONGODB_DBNAME}?retryWrites=true&w=majority")
+db = client[MONGODB_DBNAME]
 
-plants_db = mongo.db.plants
-harvests_db = mongo.db.harvests
+#app.config["MONGO_URI"] = "mongodb://localhost:27017/plantsDatabase"
+#mongo = PyMongo(app)
+
+plants_db = db.plants
+harvests_db = db.harvests
 
 ############################################################
 # ROUTES
